@@ -31,7 +31,7 @@ Database credentials could be changed in ```db.properties``` file
 4. Run application.
 
 * Request
-http://localhost:8081/users
+http://{tomcat-url}/users
 
 List of stored users should be showed.
 
