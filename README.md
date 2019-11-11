@@ -1,6 +1,6 @@
 # Servlet test application
 
-##Prerequisites
+## Prerequisites
 * Maven 
 * Java 1.8
 * Docker, [Docker-compose](https://docs.docker.com/compose/)
