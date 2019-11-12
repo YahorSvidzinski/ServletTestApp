@@ -14,6 +14,17 @@ services:
     ports:
       # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
+    volumes:
+      - ./src/main/resources/dbinit:/docker-entrypoint-initdb.d
     expose:
       # Opens port 3306 on the container
       - '3306'
+  tomcat:
+    image: tomcat:8.5.47
+    container_name: tomcat
+    volumes:
+      - ./target/servlet-test-web-xml-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/servlet.war
+    ports:
+      - '8082:8080'
+    depends_on:
+      - db

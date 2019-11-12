@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 
 import static java.lang.Long.parseLong;
 import static java.lang.String.*;
+import static repository.StudentRepositoryImpl.ID;
 
 public class StudentController extends HttpServlet {
 
@@ -24,10 +25,10 @@ public class StudentController extends HttpServlet {
 	private final StudentService studentService = new StudentServiceImpl(new StudentRepositoryImpl(), new Gson());
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		try (PrintWriter out = response.getWriter()) {
-			String id = request.getParameter("id");
+			String id = request.getParameter(ID);
 			if (id != null) {
 				log.info(format("Retrieving user with id %sfrom database", id));
 				out.print(studentService.getById(parseLong(id)));

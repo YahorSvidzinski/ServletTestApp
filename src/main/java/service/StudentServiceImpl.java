@@ -1,13 +1,14 @@
 package service;
 
 import com.google.gson.Gson;
-import dao.StudentDao;
+import dao.StudentDto;
 import lombok.AllArgsConstructor;
 import model.Student;
 import repository.StudentRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @AllArgsConstructor
 public class StudentServiceImpl implements StudentService {
@@ -20,7 +21,7 @@ public class StudentServiceImpl implements StudentService {
 		List<Student> students = studentRepository.findAll();
 		return students.stream()
 				.map(gson::toJson)
-				.collect(Collectors.toList());
+				.collect(toList());
 	}
 
 	@Override
@@ -31,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public void save(String studentJson) {
-		StudentDao student = gson.fromJson(studentJson, StudentDao.class);
+		StudentDto student = gson.fromJson(studentJson, StudentDto.class);
 		studentRepository.save(student);
 	}
 }

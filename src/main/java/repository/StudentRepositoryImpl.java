@@ -1,6 +1,6 @@
 package repository;
 
-import dao.StudentDao;
+import dao.StudentDto;
 import model.Student;
 import util.DbUtil;
 
@@ -10,23 +10,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class StudentRepositoryImpl implements StudentRepository {
 
+	private static final Logger log = Logger.getLogger(StudentRepositoryImpl.class.getName());
 	private static final String SELECT_STUDENT_BY_ID = "select * from students where id = ?";
 	private static final String INSERT_STUDENT = "insert into students(firstName, lastName) values (?, ?)";
 	private static final String SELECT_ALL_STUDENTS = "select * from students";
-	private static final String ID = "id";
-	private static final String FIRST_NAME = "firstName";
-	private static final String LAST_NAME = "lastName";
+	public static final String ID = "id";
+	public static final String FIRST_NAME = "firstName";
+	public static final String LAST_NAME = "lastName";
 
 	private Connection connection = DbUtil.getConnection();
 
 	@Override
 	public List<Student> findAll() {
 		List<Student> students = new ArrayList<>();
-		try (
-				PreparedStatement statement = connection.prepareStatement(SELECT_ALL_STUDENTS)) {
+		try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_STUDENTS)) {
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
 					students.add(new Student(resultSet.getLong(ID),
@@ -35,7 +36,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.severe(e.getMessage());
 		}
 		return students;
 	}
@@ -52,19 +53,19 @@ public class StudentRepositoryImpl implements StudentRepository {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.severe(e.getMessage());
 		}
 		return null;
 	}
 
 	@Override
-	public void save(StudentDao student) {
+	public void save(StudentDto student) {
 		try (PreparedStatement statement = connection.prepareStatement(INSERT_STUDENT)) {
 			statement.setString(1, student.getFirstName());
 			statement.setString(2, student.getLastName());
 			statement.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.severe(e.getMessage());
 		}
 	}
 }

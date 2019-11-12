@@ -5,7 +5,6 @@
 * Java 1.8
 * Docker, [Docker-compose](https://docs.docker.com/compose/)
 * Tomcat
-* IntelliJ IDEA 
 
 ## Build project
 
@@ -16,22 +15,18 @@ mvn clean package
 ```
 ## Launch application
 
- * Run MySQL Database
 ```
 docker-compose up
 ```
-Note: you can configure database creation in ```docker-compose.yml``` file.
+
+Note: you can configure database creation in ```docker-compose.yml``` file **db** section.
 Database credentials could be changed in ```db.properties``` file
 
-* Deploy created war file to tomcat
-
-1. Open IntelliJ IDEA - > Edit Configurations -> Add New Configuration -> Tomcat
-2. Select path to your Tomcat directory.
-3. Select deployed war file.
-4. Run application.
 
 * Request
-http://{tomcat-url}/users
+http://localhost:8082/servlet/students
 
 List of stored users should be showed.
+
+Note: Port and deployed war file name could be configured in docker ```docker-compose.yml``` **tomcat** section.
 

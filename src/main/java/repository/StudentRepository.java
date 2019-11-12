@@ -1,6 +1,6 @@
 package repository;
 
-import dao.StudentDao;
+import dao.StudentDto;
 import model.Student;
 
 import java.util.List;
@@ -11,6 +11,6 @@ public interface StudentRepository {
 
 	Student findById(Long id);
 
-	void save(StudentDao student);
+	void save(StudentDto student);
 
 }
